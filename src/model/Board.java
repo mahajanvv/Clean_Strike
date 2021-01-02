@@ -10,16 +10,16 @@ public class Board {
         this.black_coins = black_coins;
         this.red_coins = red_coins;
     }
-    public void set_black_coins_count(int black_coins){
+    public void setBlackCoinsCount(int black_coins){
         this.black_coins = black_coins;
     }
-    public void set_red_coins_count(int red_coins){
+    public void setRedCoinsCount(int red_coins){
         this.red_coins = red_coins;
     }
-    public int get_black_coins_count(){
+    public int getBlackCoinsCount(){
         return this.black_coins;
     }
-    public int get_red_coins_count(){
+    public int getRedCoinsCount(){
         return this.red_coins;
     }
 }
