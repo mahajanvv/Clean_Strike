@@ -11,28 +11,28 @@ public class Player{
         this.total_fouls_count = 0;
         this.recent_unsuccessful_attempts = 0;
     }
-    public void set_points(int points){
+    public void setPoints(int points){
         this.points = points;
     }
-    public void set_id(int id){
+    public void setId(int id){
         this.id = id;
     }
-    public void set_total_fouls_count(int total_fouls_count){
+    public void setTotalFoulsCount(int total_fouls_count){
         this.total_fouls_count = total_fouls_count;
     }
-    public void set_recent_unsuccessful_attempts(int recent_unsuccessful_attempts){
+    public void setRecentUnsuccessfulAttempts(int recent_unsuccessful_attempts){
         this.recent_unsuccessful_attempts = recent_unsuccessful_attempts;
     }
-    public int get_points(){
+    public int getPoints(){
         return this.points;
     }
-    public int get_total_fouls_count(){
+    public int getTotalFoulsCount(){
         return this.total_fouls_count;
     }
-    public int get_recent_unsuccessful_attempts(){
+    public int getRecentUnsuccessfulAttempts(){
         return this.recent_unsuccessful_attempts;
     }
-    public int get_id(){
+    public int getId(){
         return this.id;
     }
 }

@@ -6,40 +6,40 @@ public class Player_Controller{
     public Player_Controller(int id){
         this.player = new Player(id);
     }
-    public void Increase_Points(int points){
-        int old_points = this.player.get_points();
+    public void increasePoints(int points){
+        int old_points = this.player.getPoints();
         int new_points = old_points + points;
-        this.player.set_points(new_points);
+        this.player.setPoints(new_points);
         
     }
-    public void Decrease_Points(int points){
-        int old_points = this.player.get_points();
+    public void decreasePoints(int points){
+        int old_points = this.player.getPoints();
         int new_points = old_points - points;
-        this.player.set_points(new_points);
+        this.player.setPoints(new_points);
     }
-    public void Increase_Fouls_Count(){
-        int old_fouls_count = this.player.get_total_fouls_count();
+    public void increaseFoulsCount(){
+        int old_fouls_count = this.player.getTotalFoulsCount();
         int new_fouls_count = old_fouls_count + 1;
-        this.player.set_total_fouls_count(new_fouls_count);
+        this.player.setTotalFoulsCount(new_fouls_count);
     }
-    public void Increase_Unsuccessful_attempts(){
-        int old_attempts = this.player.get_recent_unsuccessful_attempts();
+    public void increaseUnsuccessfulAttempts(){
+        int old_attempts = this.player.getRecentUnsuccessfulAttempts();
         int new_attempts = old_attempts + 1;
-        this.player.set_recent_unsuccessful_attempts(new_attempts);
+        this.player.setRecentUnsuccessfulAttempts(new_attempts);
     }
-    public void reset_Unsuccessful_attempts(){
-        this.player.set_recent_unsuccessful_attempts(0);
+    public void resetUnsuccessfulAttempts(){
+        this.player.setRecentUnsuccessfulAttempts(0);
     }
-    public int get_Points(){
-        return this.player.get_points();
+    public int getPoints(){
+        return this.player.getPoints();
     }
-    public int get_Total_Fouls_Count(){
-        return this.player.get_total_fouls_count();
+    public int getTotalFoulsCount(){
+        return this.player.getTotalFoulsCount();
     }
-    public int get_Recent_Unsuccessful_Attempts_Count(){
-        return this.player.get_recent_unsuccessful_attempts();
+    public int getRecentUnsuccessfulAttemptsCount(){
+        return this.player.getRecentUnsuccessfulAttempts();
     }
-    public int get_player_id(){
-        return this.player.get_id();
+    public int getPlayerId(){
+        return this.player.getId();
     }
 }

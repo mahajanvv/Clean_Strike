@@ -1,3 +1,5 @@
+// Here testing of all the possible moves of a player is being done
+
 import Constants.Coin_Type;
 import controller.Game_Controller;
 import controller.Player_Controller;
@@ -7,8 +9,8 @@ public class Test_Game_Controller {
         // Test Playing a Strike move
             // Before values => Player points = 0 and Black coins = 9
         Player_Controller player = new Player_Controller(0);
-        game.Strike(player);
-        if(player.get_Points() != 1 && game.get_coins_count(Coin_Type.BLACK) != 8){
+        game.strike(player);
+        if(player.getPoints() != 1 && game.getCoinsCount(Coin_Type.BLACK) != 8){
             System.out.println("Test Playing a Strike move is Failed");
             return false;
         }
@@ -20,8 +22,8 @@ public class Test_Game_Controller {
         // Test Playing a multi strike move
             // Before values => Player points = 0 and Black coins = 9
         Player_Controller player = new Player_Controller(0);
-        game.Multi_Strike(player, 4);
-        if(player.get_Points() != 2 && game.get_coins_count(Coin_Type.BLACK) != 7){
+        game.multiStrike(player, 4);
+        if(player.getPoints() != 2 && game.getCoinsCount(Coin_Type.BLACK) != 7){
             System.out.println("Test Playing a multi strike move is Failed");
             return false;
         }
@@ -33,9 +35,9 @@ public class Test_Game_Controller {
         Player_Controller player = new Player_Controller(0);
         // Test1 playing a defunct move on black coin 
             // Before values => player points = 0 and Black coins = 9
-        game.Defunct_Coin(player, Coin_Type.BLACK);
-        if(player.get_Points() != -2 && player.get_Total_Fouls_Count() != 1 
-            && player.get_Recent_Unsuccessful_Attempts_Count() != 1 && game.get_coins_count(Coin_Type.BLACK) != 9){
+        game.defunctCoin(player, Coin_Type.BLACK);
+        if(player.getPoints() != -2 && player.getTotalFoulsCount() != 1 
+            && player.getRecentUnsuccessfulAttemptsCount() != 1 && game.getCoinsCount(Coin_Type.BLACK) != 9){
             System.out.println("Test1 playing a defunct move on black coin is Failed");
             return false;                
         }
@@ -43,9 +45,9 @@ public class Test_Game_Controller {
             // After values => player points = -2 and Black coins = 9
         // Test2 playing a defunct move on red coin
             // Before values => player points = -2, fouls = 1, unsuccessful_attempts = 1 and red_coins = 1
-        game.Defunct_Coin(player, Coin_Type.RED);
-        if(player.get_Points() != -4 && player.get_Recent_Unsuccessful_Attempts_Count() != 2 
-            && player.get_Total_Fouls_Count() != 2 && game.get_coins_count(Coin_Type.RED) != 1){
+        game.defunctCoin(player, Coin_Type.RED);
+        if(player.getPoints() != -4 && player.getRecentUnsuccessfulAttemptsCount() != 2 
+            && player.getTotalFoulsCount() != 2 && game.getCoinsCount(Coin_Type.RED) != 1){
             System.out.println("Test2 playing a defunct move on red coin is Failed");
             return false;
         }
@@ -57,10 +59,10 @@ public class Test_Game_Controller {
         Player_Controller player = new Player_Controller(0);
         // Test playing None move 
             // Before values => board red_coins = 9 and black_coins = 1 and player unsuccessful_attempts = 0
-        game.None(player);
-        if(player.get_Recent_Unsuccessful_Attempts_Count() != 1 && game.get_coins_count(Coin_Type.BLACK) != 9 
-            && game.get_coins_count(Coin_Type.RED) != 1 && player.get_Total_Fouls_Count() != 0 
-            && player.get_Points() != 0){
+        game.none(player);
+        if(player.getRecentUnsuccessfulAttemptsCount() != 1 && game.getCoinsCount(Coin_Type.BLACK) != 9 
+            && game.getCoinsCount(Coin_Type.RED) != 1 && player.getTotalFoulsCount() != 0 
+            && player.getPoints() != 0){
             System.out.println("Test playing None move is Failed");
             return false;
         }
@@ -72,9 +74,9 @@ public class Test_Game_Controller {
     private static boolean Test_Red_Strike(Game_Controller game){
         Player_Controller player = new Player_Controller(0);
         // Test playing Red_Strike move
-        game.Red_Strike(player);
+        game.redStrike(player);
             // Before values => player points = 0, red_coins = 1
-        if(player.get_Points() != 2 && game.get_coins_count(Coin_Type.RED) != 0){
+        if(player.getPoints() != 2 && game.getCoinsCount(Coin_Type.RED) != 0){
             System.out.println("Test playing Red_Strike move is Failed");
             return false;
         }

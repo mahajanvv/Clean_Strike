@@ -9,66 +9,66 @@ public class Game_Controller implements Points{
     public Game_Controller(int black_coins_count, int red_coins_count){
         this.board = new Board_Controller(black_coins_count, red_coins_count);
     }
-    public void Strike(Player_Controller player){
+    public void strike(Player_Controller player){
         // Black coins count is decreased by one and player gets one point
-        this.board.Decrease_Coins(Coin_Type.BLACK, 1);
-        player.Increase_Points(Points.Strike_Points);
-        player.reset_Unsuccessful_attempts();
+        this.board.decreaseCoins(Coin_Type.BLACK, 1);
+        player.increasePoints(Points.STRIKE_POINTS);
+        player.resetUnsuccessfulAttempts();
     }
-    public void Multi_Strike(Player_Controller player, int count){
+    public void multiStrike(Player_Controller player, int count){
         // Black coins count decreased by two and Player gets two points
-        this.board.Decrease_Coins(Coin_Type.BLACK, Game_Constants.max_number_of_coins_accepted);
-        player.Increase_Points(Points.Multi_Strike_Points);
-        player.reset_Unsuccessful_attempts();
+        this.board.decreaseCoins(Coin_Type.BLACK, Game_Constants.MAX_COINS_ACCEPTED_IN_MULTI_STRIKE_MOVE);
+        player.increasePoints(Points.MULTI_STRIKE_POINTS);
+        player.resetUnsuccessfulAttempts();
     }
-    public void Red_Strike(Player_Controller player){
+    public void redStrike(Player_Controller player){
         // Red coins count decreased by one and Player gets three points
-        this.board.Decrease_Coins(Coin_Type.RED, 1);
-        player.Increase_Points(Points.Red_Strike_Points);
-        player.reset_Unsuccessful_attempts();
+        this.board.decreaseCoins(Coin_Type.RED, 1);
+        player.increasePoints(Points.RED_STRIKE_POINTS);
+        player.resetUnsuccessfulAttempts();
     }
-    public void Striker_Strike(Player_Controller player){
+    public void strikerStrike(Player_Controller player){
         // Player loses one point
-        player.Decrease_Points(Points.Strike_Points);
-        player.Increase_Unsuccessful_attempts();
-        if(player.get_Recent_Unsuccessful_Attempts_Count()>=3){
-            player.Decrease_Points(Points.Unscuccessful_Attempts_Points);
-            player.Increase_Fouls_Count();
+        player.decreasePoints(Points.STRIKER_STRIKE_POINTS);
+        player.increaseUnsuccessfulAttempts();
+        if(player.getRecentUnsuccessfulAttemptsCount()>=3){
+            player.decreasePoints(Points.UNSUCCESSFUL_ATTEMPTS_POINTS);
+            player.increaseFoulsCount();
         }
-        player.Increase_Fouls_Count();
-        if(player.get_Total_Fouls_Count() >= 3){
-            player.Decrease_Points(Points.Foul_Points);
+        player.increaseFoulsCount();
+        if(player.getTotalFoulsCount() >= 3){
+            player.decreasePoints(Points.FOUL_POINTS);
         }
     }
-    public void Defunct_Coin(Player_Controller player, Coin_Type coin){
+    public void defunctCoin(Player_Controller player, Coin_Type coin){
         // Here coin goes out of play the coin might be red or black
         // and player loses 2 points
-        this.board.Decrease_Coins(coin, 1);
-        player.Decrease_Points(Points.Defunct_Strike_Points);
-        player.Increase_Unsuccessful_attempts();
-        if(player.get_Recent_Unsuccessful_Attempts_Count()>=3){
-            player.Decrease_Points(Points.Unscuccessful_Attempts_Points);
-            player.Increase_Fouls_Count();
+        this.board.decreaseCoins(coin, 1);
+        player.decreasePoints(Points.DEFUNCT_STRIKE_POINTS);
+        player.increaseUnsuccessfulAttempts();
+        if(player.getRecentUnsuccessfulAttemptsCount()>=3){
+            player.decreasePoints(Points.UNSUCCESSFUL_ATTEMPTS_POINTS);
+            player.increaseFoulsCount();
         }
-        player.Increase_Fouls_Count();
-        if(player.get_Total_Fouls_Count() >= 3){
-            player.Decrease_Points(Points.Foul_Points);
-        }
-    }
-    public void None(Player_Controller player){
-        player.Increase_Unsuccessful_attempts();
-        if(player.get_Recent_Unsuccessful_Attempts_Count()>=3){
-            player.Decrease_Points(Points.Unscuccessful_Attempts_Points);
-            player.Increase_Fouls_Count();
-        }
-        if(player.get_Total_Fouls_Count() >= 3){
-            player.Decrease_Points(Points.Foul_Points);
+        player.increaseFoulsCount();
+        if(player.getTotalFoulsCount() >= 3){
+            player.decreasePoints(Points.FOUL_POINTS);
         }
     }
-    public boolean Is_Board_Empty(){
-        return this.board.Is_Board_Emplty();
+    public void none(Player_Controller player){
+        player.increaseUnsuccessfulAttempts();
+        if(player.getRecentUnsuccessfulAttemptsCount()>=3){
+            player.decreasePoints(Points.UNSUCCESSFUL_ATTEMPTS_POINTS);
+            player.increaseFoulsCount();
+        }
+        if(player.getTotalFoulsCount() >= 3){
+            player.decreasePoints(Points.FOUL_POINTS);
+        }
     }
-    public int get_coins_count(Coin_Type coin){
-        return this.board.get_coins_count(coin);
+    public boolean isBoardEmpty(){
+        return this.board.isBoardEmpty();
+    }
+    public int getCoinsCount(Coin_Type coin){
+        return this.board.getCoinsCount(coin);
     }
 }

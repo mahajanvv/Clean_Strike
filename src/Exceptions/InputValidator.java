@@ -12,37 +12,37 @@ public class InputValidator {
         }else{
             switch(inputs[0]){
                 case "STRIKE":
-                    if(game.get_coins_count(Coin_Type.BLACK)<1){
+                    if(game.getCoinsCount(Coin_Type.BLACK)<1){
                         throw new InvalidMoveException("Invalid move there is no BLACK COIN present on the board");
                     }
                 break;
                 case "MULTI_STRIKE":
                     int coins_count = Integer.parseInt(inputs[1]);
-                    if(coins_count < Game_Constants.max_number_of_coins_accepted){
-                        throw new InvalidMoveException("You should pocket atleast "+Game_Constants.max_number_of_coins_accepted+" coins in MULTI_STRIKE move");
+                    if(coins_count < Game_Constants.MAX_COINS_ACCEPTED_IN_MULTI_STRIKE_MOVE){
+                        throw new InvalidMoveException("You should pocket atleast "+Game_Constants.MAX_COINS_ACCEPTED_IN_MULTI_STRIKE_MOVE+" coins in MULTI_STRIKE move");
                     }
-                    if(game.get_coins_count(Coin_Type.BLACK)<coins_count){
+                    if(game.getCoinsCount(Coin_Type.BLACK)<coins_count){
                         throw new InvalidMoveException("Invalid move, BLACK COINs count is less than the requested count");
                     }
                 break;
                 case "RED_STRIKE":
                     if(inputs.length>1){
                         int black_coins_count = Integer.parseInt(inputs[1]);
-                        if(game.get_coins_count(Coin_Type.BLACK) < black_coins_count){
+                        if(game.getCoinsCount(Coin_Type.BLACK) < black_coins_count){
                             throw new InvalidMoveException("Invalid move, BLACK COINs count is less than the requested count");
                         }
                     }
-                    if(game.get_coins_count(Coin_Type.RED)<1){
+                    if(game.getCoinsCount(Coin_Type.RED)<1){
                         throw new InvalidMoveException("There is no RED coin present on the board");
                     }
                 break;
                 case "NONE":
-                    if(game.Is_Board_Empty()){
+                    if(game.isBoardEmpty()){
                         throw new InvalidMoveException("There is not a single coin present on the board");
                     }
                 break;
                 case "DEFUNCT_COIN":
-                    if(game.Is_Board_Empty()){
+                    if(game.isBoardEmpty()){
                         throw new InvalidMoveException("There is not a single coin present on the board");
                     }
                 break;

@@ -1,10 +1,6 @@
 package controller;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.Scanner;
-
 import Constants.Coin_Type;
 import Constants.Game_Constants;
 import Constants.Points;
@@ -19,18 +15,18 @@ public class Match_Controller {
         this.players = new PriorityQueue<Player_Controller>(new Comparator<Player_Controller>(){
           @Override
           public int compare(Player_Controller p1, Player_Controller p2) {
-            return (p1.get_Points() > p2.get_Points() ) ? -1: (p1.get_Points() < p2.get_Points()) ? 1:0 ;
+            return (p1.getPoints() > p2.getPoints() ) ? -1: (p1.getPoints() < p2.getPoints()) ? 1:0 ;
           }
         });
-        for(int i=0; i<Game_Constants.Number_Of_Players; i++){
+        for(int i=0; i<Game_Constants.NUMBER_OF_PLAYERS; i++){
           this.players.add(new Player_Controller(i));
         }
-        this.game = new Game_Controller(Game_Constants.Black_Coins_Count, Game_Constants.Red_Coins_Count);
+        this.game = new Game_Controller(Game_Constants.BLACK_COINS_COUNT, Game_Constants.RED_COINS_COUNT);
         this.turn = 0;
     }
     public Player_Controller find(int id){
       for(Player_Controller player : this.players){
-        if(player.get_player_id() == id){
+        if(player.getPlayerId() == id){
           return player;
         }
       }
@@ -38,107 +34,102 @@ public class Match_Controller {
     }
     public Player_Controller getPlayer(){
       int turn = this.turn;
-      int number_of_players = Game_Constants.Number_Of_Players;
-      if(turn%number_of_players == 0) {
+      int NUMBER_OF_PLAYERS = Game_Constants.NUMBER_OF_PLAYERS;
+      if(turn%NUMBER_OF_PLAYERS == 0) {
         turn = 0;
       }else{
-        turn = turn%number_of_players;
+        turn = turn%NUMBER_OF_PLAYERS;
       }
       Player_Controller player = find(turn);
       return player;
     }
-    public void getStateOfPlayer(Player_Controller player){
+    public String getStateOfPlayer(Player_Controller player){
       String str = "";
-      str += "Player ID:"+player.get_player_id()+"Points-> "+player.get_Points()+" Total_Fouls_Count-> "+ player.get_Total_Fouls_Count()+ " Recent_Unsuccessful_Attempts_Count -> "+ player.get_Recent_Unsuccessful_Attempts_Count();
-      
-      System.out.println(str);
+      str += "Player ID:"+player.getPlayerId()+" Points-> "+player.getPoints()+" Total_Fouls_Count-> "+ player.getTotalFoulsCount()+ " Recent_Unsuccessful_Attempts_Count -> "+ player.getRecentUnsuccessfulAttemptsCount();
+      return str;
     }
-    public Player_Controller Calculate_Winner(){
+    public String getStateOfGame(){
+      String str="";
+      str += "Black_Coins Count:"+this.game.getCoinsCount(Coin_Type.BLACK) +" Red_Coins Count:"+this.game.getCoinsCount(Coin_Type.RED);
+      return str;
+    }
+    public Player_Controller calculateWinner(){
       Player_Controller player1 = this.players.poll();
       Player_Controller player2 = this.players.poll();
-      System.out.println("Player1:"+player1.get_player_id()+" Player2:"+player2.get_player_id());
       this.players.add(player1);
       this.players.add(player2);
-      if(player1.get_Points() >= player2.get_Points()+Points.Minimum_Diff_Points && player1.get_Points() >= Points.Minimum_Points_Required){
+      if(player1.getPoints() >= player2.getPoints()+Points.MINIMUM_DIFF_POINTS && player1.getPoints() >= Points.MINIMUM_POINTS_REQUIRED){
         return player1;
-      }else if(this.game.Is_Board_Empty() == true){
-        if(player1.get_Points() >= player2.get_Points()+Points.Minimum_Diff_Points || player1.get_Points() >= Points.Minimum_Points_Required){
+      }else if(this.game.isBoardEmpty() == true){
+        if(player1.getPoints() >= player2.getPoints()+Points.MINIMUM_DIFF_POINTS || player1.getPoints() >= Points.MINIMUM_POINTS_REQUIRED){
           return player1;
         }
       }
       return null;
     }
-    public void Change_Turn(){
+    public void changeTurn(){
       int turn = this.turn;
       turn++;
-      this.turn = turn%Game_Constants.Number_Of_Players;
+      this.turn = turn%Game_Constants.NUMBER_OF_PLAYERS;
     }
-    public boolean Play(String input_command){
+    public boolean play(String input_command){
       String[] inputs = input_command.split(" ");
       String move = inputs[0];
       Player_Controller player = getPlayer();
       this.players.remove(player);
+      System.out.println("\nPlayer"+player.getPlayerId()+" choosed:"+input_command+" move");
+      System.out.println("Before playing move=>"+getStateOfPlayer(player));
+      System.out.println("Before playing move=> Game State:"+getStateOfGame());
       switch(move){
         case "STRIKE":
-          this.game.Strike(player);
+          this.game.strike(player);
           break;
         case "MULTI_STRIKE":
           // We should take one more input that is count of striked coins
-          this.game.Multi_Strike(player, Integer.parseInt(inputs[1]));
+          this.game.multiStrike(player, Integer.parseInt(inputs[1]));
           break;
         case "RED_STRIKE":
-          this.game.Red_Strike(player);
+          this.game.redStrike(player);
           break;
         case "NONE":
-          this.game.None(player);
+          this.game.none(player);
           break;
         case "DEFUNCT_COIN":
           switch(inputs[1]){
             case "BLACK":
-              this.game.Defunct_Coin(player, Coin_Type.BLACK);
+              this.game.defunctCoin(player, Coin_Type.BLACK);
             break;
             case "RED":
-              this.game.Defunct_Coin(player, Coin_Type.RED);
+              this.game.defunctCoin(player, Coin_Type.RED);
             break;
           }
       }
       this.players.add(player);
-      getStateOfPlayer(player);
-      Change_Turn();
-      Player_Controller winner = Calculate_Winner();
+      System.out.println("After playing move=> Game State:"+getStateOfGame());
+      System.out.println("After playing move=>"+getStateOfPlayer(player)+"\n");
+      changeTurn();
+      Player_Controller winner = calculateWinner();
       if(winner != null){
-        System.out.println("Winner is:"+winner.get_player_id()+" having points:"+winner.get_Points());
+        System.out.println("Winner is:Player"+winner.getPlayerId()+" having points:"+winner.getPoints());
         return false;
       }else{
-        if(this.game.Is_Board_Empty() == true){
+        if(this.game.isBoardEmpty() == true){
           System.out.println("Match is draw");
           return false;
         }
       }
       return true;
     }
-    public static void main(String[] args) {
-      Match_Controller match = new Match_Controller();
-        try {
-            File myObj = new File("./tests/inputs/input2.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-              String data = myReader.nextLine();
-              System.out.println(data);
-              try{
-                InputValidator.validate(data, match.game);
-                if(match.Play(data) == false){
-                  break;
-                }
-              }catch(InvalidMoveException e){
-                System.out.println("Discarding the current move because of following exception");
-                System.out.println(e.getMessage());
-              }
-            }
-            myReader.close();
-          } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+    public boolean validateMoveAndPlay(String data){
+      try{
+        InputValidator.validate(data, this.game);
+        if(play(data) == false){
+          return false;
         }
+      }catch(InvalidMoveException e){
+        System.out.println("\nDiscarding "+data+ " move because of following exception");
+        System.out.println(e.getMessage()+"\n");
+      }
+      return true;
     }
 }
