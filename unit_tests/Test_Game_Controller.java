@@ -1,6 +1,6 @@
 // Here testing of all the possible moves of a player is being done
 
-import Constants.Coin_Type;
+import constants.Coin_Type;
 import controller.Game_Controller;
 import controller.Player_Controller;
 

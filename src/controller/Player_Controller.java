@@ -1,6 +1,7 @@
 package controller;
 import model.Player;
-
+// This class is handling all kind modifications that can happen on Player Object.
+// such as increasing points, decreasing points, increasing fouls count, etc...
 public class Player_Controller{
     private Player player;
     public Player_Controller(int id){

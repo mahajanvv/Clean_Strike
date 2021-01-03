@@ -1,10 +1,13 @@
 package controller;
+import constants.Coin_Type;
+import constants.Game_Constants;
+import constants.Points;
 
-import Constants.Coin_Type;
-import Constants.Game_Constants;
-import Constants.Points;
-// What if coins exhausted write some exception handling cases
-public class Game_Controller implements Points{
+// This class is used to make a move on the board for a particular player.
+// This class will change the state of board and also calls for Player_Controller
+// which will change the state of player. either by increasing points or by decreasing 
+// points.
+public class Game_Controller{
     private Board_Controller board;
     public Game_Controller(int black_coins_count, int red_coins_count){
         this.board = new Board_Controller(black_coins_count, red_coins_count);

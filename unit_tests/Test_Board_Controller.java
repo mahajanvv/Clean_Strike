@@ -1,7 +1,7 @@
 // Here testing of all the fucntions related to decreasing count of coins 
 // and increasing count of coins
 
-import Constants.Coin_Type;
+import constants.Coin_Type;
 import controller.Board_Controller;
 public class Test_Board_Controller {
     private static boolean Test_increaseCoins_Count(Board_Controller board){

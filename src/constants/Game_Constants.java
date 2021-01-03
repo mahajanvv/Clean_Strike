@@ -1,5 +1,5 @@
-package Constants;
-
+package constants;
+// All the game configuration constants are defined here in this file.
 public interface Game_Constants {
     public final int NUMBER_OF_PLAYERS = 2;  
     public final int BLACK_COINS_COUNT = 9;

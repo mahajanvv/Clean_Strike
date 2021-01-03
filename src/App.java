@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import controller.Match_Controller;
-
+// This is a driver class it fetched all the input files which are there in tests/inputs/ folder
+// and fetches one by one all the commands and passes to the Match_Controller Object. 
 public class App {
     public static void main(String[] args) throws Exception {
       File myObj = new File("./tests/inputs");

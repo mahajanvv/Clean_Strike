@@ -1,7 +1,8 @@
 package controller;
+import constants.Coin_Type;
 import model.Board;
-import Constants.Coin_Type;
-
+// This class is handling all types of modifications that can occur on Board.
+// such as Increasing coins count, decreasing coins count, etc...
 public class Board_Controller{
     private Board board;
     public Board_Controller(int black_coins_count, int red_coins_count){
