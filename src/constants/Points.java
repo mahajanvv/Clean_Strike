@@ -1,5 +1,6 @@
-package Constants;
-
+package constants;
+// All the points which will be added or deducted whenever a move is been taken
+// are defined here
 public interface Points {
     public final int STRIKE_POINTS = 1;
     public final int MULTI_STRIKE_POINTS = 2;

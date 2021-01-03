@@ -1,7 +1,7 @@
-package Exceptions;
+package exceptions;
 
-import Constants.Coin_Type;
-import Constants.Game_Constants;
+import constants.Coin_Type;
+import constants.Game_Constants;
 import controller.Game_Controller;
 
 public class InputValidator {
